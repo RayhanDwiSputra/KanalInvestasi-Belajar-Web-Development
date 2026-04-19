@@ -22,21 +22,6 @@
 
 ---
 
-## 🖼️ Tampilan
-
-### Halaman Login
-![Login Page](screenshots/login.png)
-
-### Halaman Utama
-![Main Page](screenshots/main.png)
-
-### Simulasi Trading
-![Simulasi](screenshots/simulasi.png)
-
-> 💡 *Tambahkan screenshot ke folder `/screenshots` untuk menampilkan gambar di atas.*
-
----
-
 ## 🗂️ Struktur Proyek
 
 ```
