@@ -9,6 +9,17 @@
 
 ---
 
+## Tampilan/interface
+![alt text](https://github.com/RayDwi/KanalInvestasi-Belajar-Web-Development/blob/main/Interface/log%20in%20page.png?raw=true)
+
+![alt text](https://github.com/RayDwi/KanalInvestasi-Belajar-Web-Development/blob/main/Interface/Main%20page.png?raw=true)
+
+![alt text](https://github.com/RayDwi/KanalInvestasi-Belajar-Web-Development/blob/main/Interface/material%20page.png?raw=true)
+
+![alt text](https://github.com/RayDwi/KanalInvestasi-Belajar-Web-Development/blob/main/Interface/Simulation%20page.png?raw=true)
+
+![alt text](https://github.com/RayDwi/KanalInvestasi-Belajar-Web-Development/blob/main/Interface/News%20page.png?raw=true)
+
 ## 📖 Tentang Proyek
 
 **KanalInvestasi** adalah aplikasi web yang saya buat untuk berlatih web development. Proyek ini mensimulasikan platform edukasi investasi saham dengan fitur:
