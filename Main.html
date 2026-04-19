@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KanalInvestasi — Platform Belajar Saham</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Stylesheet halaman utama -->
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+    <!-- Klik logo untuk kembali ke beranda -->
+    <div class="nav-brand" onclick="showPage('home')">
+        <span class="nav-brand-dot"></span> KanalInvestasi
+    </div>
+
+    <!-- Menu navigasi utama -->
+    <!-- data-page digunakan JS untuk menentukan halaman mana yang aktif -->
+    <ul class="nav-links">
+        <li><a href="#" class="active" data-page="home" onclick="navClick(event,'home')">
+            <i class="fas fa-home" style="font-size:12px"></i> Beranda
+        </a></li>
+        <li><a href="#" data-page="materi" onclick="navClick(event,'materi')">
+            <i class="fas fa-book-open" style="font-size:12px"></i> Materi
+        </a></li>
+        <li><a href="#" data-page="simulasi" onclick="navClick(event,'simulasi')">
+            <i class="fas fa-chart-candlestick" style="font-size:12px"></i> Simulasi
+        </a></li>
+        <li><a href="#" data-page="berita" onclick="navClick(event,'berita')">
+            <i class="fas fa-newspaper" style="font-size:12px"></i> Berita
+        </a></li>
+    </ul>
+
+    <!-- Info user yang sedang login -->
+    <div class="nav-user">
+        <div class="user-badge">
+            <!-- Inisial dan nama diisi oleh JavaScript dari sessionStorage -->
+            <div class="user-avatar" id="userAvatar">T</div>
+            <span class="user-name" id="userName">Tamu</span>
+        </div>
+        <button class="btn-logout" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Keluar
+        </button>
+    </div>
+</nav>
+
+
+<!-- ===== PAGE: BERANDA ===== -->
+<!-- Hanya halaman ini yang tampil pertama kali (class "active") -->
+<div class="page active" id="page-home">
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-grid"></div>
+        <div class="hero-inner">
+            <div class="hero-text">
+                <h1>Kuasai <span>Pasar Saham</span><br>Dari Nol.</h1>
+                <p>Platform edukasi investasi terlengkap. Pelajari analisis teknikal, fundamental, dan strategi trading bersama komunitas investor aktif.</p>
+            </div>
+
+            <!-- Kartu ticker harga saham (data statis) -->
+            <div class="hero-ticker">
+                <div class="ticker-card">
+                    <div class="ticker-label">IHSG (JKSE)</div>
+                    <div class="ticker-val">7.234,12</div>
+                    <div class="ticker-change up"><i class="fas fa-caret-up"></i> +0,45%</div>
+                </div>
+                <div class="ticker-card">
+                    <div class="ticker-label">DOW JONES</div>
+                    <div class="ticker-val">38.904,04</div>
+                    <div class="ticker-change down"><i class="fas fa-caret-down"></i> −0,12%</div>
+                </div>
+                <div class="ticker-card">
+                    <div class="ticker-label">Status Pasar</div>
+                    <div class="ticker-val" style="color:var(--green);font-size:16px;">● TERBUKA</div>
+                    <div class="ticker-change" style="color:rgba(255,255,255,0.35);">Bursa Efek Indonesia</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modul Terpopuler -->
+    <div class="content-wrap">
+        <div class="section-header">
+            <h2 class="section-title">Modul Terpopuler</h2>
+            <!-- Tombol ini memanggil showPage() untuk pindah ke halaman Materi -->
+            <button class="see-all" onclick="showPage('materi')">
+                Lihat Semua <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Grid 3 kartu modul — onclick memanggil openLesson() dengan ID modul -->
+        <div class="cards-grid">
+            <div class="course-card" onclick="openLesson('pasar-modal')">
+                <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1768055105681-7d2096c5165f?q=80&w=1249&auto=format&fit=crop" alt="Pasar Modal">
+                    <span class="card-badge badge-pemula">Pemula</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Pengenalan Pasar Modal</div>
+                    <div class="card-desc">Pahami konsep dasar saham, dividen, dan cara kerja bursa efek Indonesia.</div>
+                    <div class="card-meta">
+                        <span><i class="far fa-clock"></i> 2 Jam</span>
+                        <span><i class="fas fa-layer-group"></i> 12 Materi</span>
+                        <span><i class="fas fa-star" style="color:var(--gold)"></i> 4.9</span>
+                    </div>
+                    <button class="btn-mulai">Mulai Belajar →</button>
+                </div>
+            </div>
+
+            <div class="course-card" onclick="openLesson('teknikal')">
+                <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=500&q=80" alt="Analisis Teknikal">
+                    <span class="card-badge badge-menengah">Menengah</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Analisis Teknikal Dasar</div>
+                    <div class="card-desc">Cara membaca candlestick, trendline, dan indikator Moving Average & RSI.</div>
+                    <div class="card-meta">
+                        <span><i class="far fa-clock"></i> 4 Jam</span>
+                        <span><i class="fas fa-layer-group"></i> 15 Materi</span>
+                        <span><i class="fas fa-star" style="color:var(--gold)"></i> 4.8</span>
+                    </div>
+                    <button class="btn-mulai">Mulai Belajar →</button>
+                </div>
+            </div>
+
+            <div class="course-card" onclick="openLesson('fundamental')">
+                <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80" alt="Analisis Fundamental">
+                    <span class="card-badge badge-menengah">Menengah</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Analisis Fundamental</div>
+                    <div class="card-desc">Belajar membaca laporan keuangan, rasio P/E, ROE, dan valuasi perusahaan.</div>
+                    <div class="card-meta">
+                        <span><i class="far fa-clock"></i> 3 Jam</span>
+                        <span><i class="fas fa-layer-group"></i> 10 Materi</span>
+                        <span><i class="fas fa-star" style="color:var(--gold)"></i> 4.7</span>
+                    </div>
+                    <button class="btn-mulai">Mulai Belajar →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ===== PAGE: MATERI ===== -->
+<div class="page" id="page-materi">
+    <div class="content-wrap">
+        <div class="section-header">
+            <h2 class="section-title">Semua Modul Belajar</h2>
+            <span style="font-size:13px;color:var(--muted)">7 Modul Tersedia</span>
+        </div>
+
+        <div class="cards-grid">
+            <div class="course-card" onclick="openLesson('pasar-modal')">
+                <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1768055105681-7d2096c5165f?q=80&w=1249&auto=format&fit=crop" alt="">
+                    <span class="card-badge badge-pemula">Pemula</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Pengenalan Pasar Modal</div>
+                    <div class="card-desc">Pahami konsep dasar saham, dividen, dan cara kerja bursa efek.</div>
+                    <div class="card-meta"><span><i class="far fa-clock"></i> 2 Jam</span><span><i class="fas fa-layer-group"></i> 12 Materi</span></div>
+                    <button class="btn-mulai">Mulai Belajar →</button>
+                </div>
+            </div>
+
+            <div class="course-card" onclick="openLesson('teknikal')">
+                <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=500&q=80" alt="">
+                    <span class="card-badge badge-menengah">Menengah</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Analisis Teknikal Dasar</div>
+                    <div class="card-desc">Cara membaca candlestick, trendline, dan indikator MA/RSI.</div>
+                    <div class="card-meta"><span><i class="far fa-clock"></i> 4 Jam</span><span><i class="fas fa-layer-group"></i> 15 Materi</span></div>
+                    <button class="btn-mulai">Mulai Belajar →</button>
+                </div>
+            </div>
+
+            <div class="course-card" onclick="openLesson('fundamental')">
+                <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80" alt="">
+                    <span class="card-badge badge-menengah">Menengah</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Analisis Fundamental</div>
+                    <div class="card-desc">Belajar membaca laporan keuangan dan valuasi perusahaan.</div>
+                    <div class="card-meta"><span><i class="far fa-clock"></i> 3 Jam</span><span><i class="fas fa-layer-group"></i> 10 Materi</span></div>
+                    <button class="btn-mulai">Mulai Belajar →</button>
+                </div>
+            </div>
+
+            <div class="course-card" onclick="openLesson('manajemen-risiko')">
+                <div class="card-img-wrap" style="background:linear-gradient(135deg,#1a1040,#7c3aed);">
+                    <img src="https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=500&q=80" alt="">
+                    <span class="card-badge badge-menengah">Menengah</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Manajemen Risiko</div>
+                    <div class="card-desc">Stop Loss, Take Profit, dan cara mengelola portofolio dengan benar.</div>
+                    <div class="card-meta"><span><i class="far fa-clock"></i> 2.5 Jam</span><span><i class="fas fa-layer-group"></i> 8 Materi</span></div>
+                    <button class="btn-mulai">Mulai Belajar →</button>
+                </div>
+            </div>
+
+            <div class="course-card" onclick="openLesson('psikologi')">
+                <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=500&q=80" alt="">
+                    <span class="card-badge badge-lanjutan">Lanjutan</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Psikologi Trading</div>
+                    <div class="card-desc">Kendalikan emosi, hindari FOMO dan serakah saat trading.</div>
+                    <div class="card-meta"><span><i class="far fa-clock"></i> 2 Jam</span><span><i class="fas fa-layer-group"></i> 9 Materi</span></div>
+                    <button class="btn-mulai">Mulai Belajar →</button>
+                </div>
+            </div>
+
+            <div class="course-card" onclick="openLesson('reksa-dana')">
+                <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=500&q=80" alt="">
+                    <span class="card-badge badge-pemula">Pemula</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Reksa Dana untuk Pemula</div>
+                    <div class="card-desc">Cara mulai investasi reksa dana dengan modal kecil dan aman.</div>
+                    <div class="card-meta"><span><i class="far fa-clock"></i> 1.5 Jam</span><span><i class="fas fa-layer-group"></i> 7 Materi</span></div>
+                    <button class="btn-mulai">Mulai Belajar →</button>
+                </div>
+            </div>
+
+            <div class="course-card" onclick="openLesson('trading-strategi')">
+                <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1642790551116-18e150f248e3?auto=format&fit=crop&w=500&q=80" alt="">
+                    <span class="card-badge badge-lanjutan">Lanjutan</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Strategi Trading Lanjutan</div>
+                    <div class="card-desc">Scalping, swing trading, dan momentum strategy untuk trader berpengalaman.</div>
+                    <div class="card-meta"><span><i class="far fa-clock"></i> 5 Jam</span><span><i class="fas fa-layer-group"></i> 18 Materi</span></div>
+                    <button class="btn-mulai">Mulai Belajar →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ===== PAGE: SIMULASI ===== -->
+<div class="page" id="page-simulasi">
+    <div class="sim-wrap">
+        <!-- Banner atas dengan saldo virtual -->
+        <div class="sim-hero">
+            <div>
+                <h2>Simulasi Trading</h2>
+                <p>Latih kemampuan trading kamu dengan uang virtual tanpa risiko nyata.</p>
+            </div>
+            <div class="portfolio-val">
+                <div class="portfolio-label">Saldo Virtual</div>
+                <!-- Nilai ini diperbarui oleh JavaScript saat ada transaksi -->
+                <div class="portfolio-num" id="portfolioBalance">Rp 100.000.000</div>
+                <div class="portfolio-change" id="portfolioChange">
+                    <i class="fas fa-caret-up"></i> +Rp 0 hari ini
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <h2 class="section-title">Daftar Saham</h2>
+            <span style="font-size:12px;color:var(--muted)">Update: Real-time simulation</span>
+        </div>
+
+        <!-- Tabel daftar saham (data statis) -->
+        <!-- Tombol "Beli" memanggil openBuy(kode, harga) -->
+        <div class="saham-table">
+            <div class="table-header">
+                <div>Emiten</div>
+                <div>Harga</div>
+                <div>Perubahan</div>
+                <div>Volume</div>
+                <div>Aksi</div>
+            </div>
+
+            <div class="table-row">
+                <div><div class="stock-code">BBCA</div><div class="stock-name">Bank Central Asia</div></div>
+                <div class="stock-price">Rp 9.450</div>
+                <div><span class="change-pill change-up"><i class="fas fa-caret-up"></i> +1,23%</span></div>
+                <div style="font-size:13px;color:var(--muted)">12,4M</div>
+                <div><button class="btn-beli" onclick="openBuy('BBCA','9.450')">Beli</button></div>
+            </div>
+
+            <div class="table-row">
+                <div><div class="stock-code">TLKM</div><div class="stock-name">Telkom Indonesia</div></div>
+                <div class="stock-price">Rp 3.860</div>
+                <div><span class="change-pill change-down"><i class="fas fa-caret-down"></i> −0,51%</span></div>
+                <div style="font-size:13px;color:var(--muted)">8,2M</div>
+                <div><button class="btn-beli" onclick="openBuy('TLKM','3.860')">Beli</button></div>
+            </div>
+
+            <div class="table-row">
+                <div><div class="stock-code">ASII</div><div class="stock-name">Astra International</div></div>
+                <div class="stock-price">Rp 4.520</div>
+                <div><span class="change-pill change-up"><i class="fas fa-caret-up"></i> +0,89%</span></div>
+                <div style="font-size:13px;color:var(--muted)">6,7M</div>
+                <div><button class="btn-beli" onclick="openBuy('ASII','4.520')">Beli</button></div>
+            </div>
+
+            <div class="table-row">
+                <div><div class="stock-code">GOTO</div><div class="stock-name">GoTo Gojek Tokopedia</div></div>
+                <div class="stock-price">Rp 87</div>
+                <div><span class="change-pill change-down"><i class="fas fa-caret-down"></i> −2,24%</span></div>
+                <div style="font-size:13px;color:var(--muted)">145M</div>
+                <div><button class="btn-beli" onclick="openBuy('GOTO','87')">Beli</button></div>
+            </div>
+
+            <div class="table-row">
+                <div><div class="stock-code">BMRI</div><div class="stock-name">Bank Mandiri</div></div>
+                <div class="stock-price">Rp 5.900</div>
+                <div><span class="change-pill change-up"><i class="fas fa-caret-up"></i> +1,72%</span></div>
+                <div style="font-size:13px;color:var(--muted)">22,1M</div>
+                <div><button class="btn-beli" onclick="openBuy('BMRI','5.900')">Beli</button></div>
+            </div>
+
+            <div class="table-row">
+                <div><div class="stock-code">UNVR</div><div class="stock-name">Unilever Indonesia</div></div>
+                <div class="stock-price">Rp 2.150</div>
+                <div><span class="change-pill change-down"><i class="fas fa-caret-down"></i> −0,46%</span></div>
+                <div style="font-size:13px;color:var(--muted)">4,9M</div>
+                <div><button class="btn-beli" onclick="openBuy('UNVR','2.150')">Beli</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ===== PAGE: BERITA ===== -->
+<div class="page" id="page-berita">
+    <div class="news-wrap">
+        <div class="section-header">
+            <h2 class="section-title">Berita Pasar Terkini</h2>
+            <span style="font-size:12px;color:var(--muted)">Sabtu, 18 April 2026</span>
+        </div>
+
+        <!-- Layout dua kolom: berita besar (kiri) dan sidebar (kanan) -->
+        <div class="news-grid">
+            <!-- Berita utama -->
+            <div class="news-main">
+                <div class="news-card-big">
+                    <img src="https://cdn.antaranews.com/cache/1200x800/2025/06/16/IHSG.jpg" alt="IHSG">
+                    <div class="news-card-body">
+                        <span class="news-category">Makroekonomi</span>
+                        <div class="news-title">IHSG Menguat 0,45% Ditopang Sektor Perbankan dan Energi</div>
+                        <div class="news-excerpt">Indeks Harga Saham Gabungan (IHSG) ditutup menguat pada perdagangan hari ini, didorong oleh kenaikan saham-saham perbankan besar dan sektor energi yang positif merespons kenaikan harga komoditas global.</div>
+                        <div class="news-meta">
+                            <span><i class="far fa-clock"></i> 2 jam lalu</span>
+                            <span><i class="far fa-user"></i> Tim Riset KanalInvestasi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card-big">
+                    <img src="https://images.unsplash.com/photo-1642790551116-18e150f248e3?auto=format&fit=crop&w=800&q=80" alt="Analisis">
+                    <div class="news-card-body">
+                        <span class="news-category">Teknikal</span>
+                        <div class="news-title">Analisis Teknikal Mingguan: BBCA Potensi Breakout ke Level 9.800</div>
+                        <div class="news-excerpt">Berdasarkan pola chart mingguan, saham BBCA menunjukkan formasi bullish flag yang mengindikasikan potensi kenaikan lanjutan. Resistance kunci berada di level 9.650 dan target berikutnya di 9.800.</div>
+                        <div class="news-meta">
+                            <span><i class="far fa-clock"></i> 5 jam lalu</span>
+                            <span><i class="far fa-user"></i> Analis Teknikal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar berita ringkas -->
+            <div class="news-sidebar">
+                <div class="news-small-card">
+                    <img class="news-small-img" src="https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=200&q=80" alt="">
+                    <div>
+                        <div class="news-small-title">Fed Pertahankan Suku Bunga, Wall Street Merespons Positif</div>
+                        <div class="news-small-meta"><i class="far fa-clock"></i> 1 jam lalu</div>
+                    </div>
+                </div>
+
+                <div class="news-small-card">
+                    <img class="news-small-img" src="https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=200&q=80" alt="">
+                    <div>
+                        <div class="news-small-title">Rupiah Menguat ke Rp 15.780 per Dolar AS</div>
+                        <div class="news-small-meta"><i class="far fa-clock"></i> 3 jam lalu</div>
+                    </div>
+                </div>
+
+                <div class="news-small-card">
+                    <img class="news-small-img" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=200&q=80" alt="">
+                    <div>
+                        <div class="news-small-title">Rekomendasi 5 Saham Dividen Terbaik Q2 2026</div>
+                        <div class="news-small-meta"><i class="far fa-clock"></i> 6 jam lalu</div>
+                    </div>
+                </div>
+
+                <div class="news-small-card">
+                    <img class="news-small-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=200&q=80" alt="">
+                    <div>
+                        <div class="news-small-title">Emas Tembus $2.420 Per Troy Ounce, Tertinggi 2026</div>
+                        <div class="news-small-meta"><i class="far fa-clock"></i> 8 jam lalu</div>
+                    </div>
+                </div>
+
+                <div class="news-small-card">
+                    <img class="news-small-img" src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=200&q=80" alt="">
+                    <div>
+                        <div class="news-small-title">OJK Luncurkan Regulasi Baru Perlindungan Investor Ritel</div>
+                        <div class="news-small-meta"><i class="far fa-clock"></i> 10 jam lalu</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ===== MODAL: MATERI BELAJAR ===== -->
+<!-- Tersembunyi secara default, ditampilkan via JS dengan class .open -->
+<div class="modal-overlay" id="lessonModal">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('lessonModal')">
+            <i class="fas fa-times"></i>
+        </button>
+        <!-- Konten di bawah ini diisi secara dinamis oleh openLesson() -->
+        <div class="modal-tag" id="lessonTag">Pemula</div>
+        <div class="modal-title" id="lessonTitle">Judul Modul</div>
+        <div class="modal-body" id="lessonBody"></div>
+        <div class="modal-footer">
+            <button class="btn-close-modal" onclick="closeModal('lessonModal')">Tutup</button>
+            <button class="btn-next" onclick="closeModal('lessonModal')">Lanjutkan Kursus →</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- ===== MODAL: SIMULASI BELI SAHAM ===== -->
+<div class="modal-overlay" id="buyModal">
+    <div class="modal-box buy-modal">
+        <button class="modal-close" onclick="closeModal('buyModal')">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-tag">Simulasi Beli</div>
+        <!-- Judul diisi dinamis oleh openBuy() -->
+        <div class="modal-title" id="buyTitle">Beli Saham</div>
+        <div class="buy-form">
+            <label class="buy-label">Jumlah Lot (1 lot = 100 lembar)</label>
+            <!-- oninput memanggil updateBuySummary() setiap kali angka diubah -->
+            <input
+                type="number"
+                class="buy-input"
+                id="buyLot"
+                placeholder="Contoh: 5"
+                min="1"
+                oninput="updateBuySummary()"
+                value="1"
+            >
+            <!-- Ringkasan kalkulasi harga -->
+            <div class="buy-summary">
+                <div class="buy-row">
+                    <span>Harga/lembar</span>
+                    <span id="buyPriceDisplay">Rp 0</span>
+                </div>
+                <div class="buy-row">
+                    <span>Jumlah lot</span>
+                    <span id="buyLotDisplay">1 lot (100 lbr)</span>
+                </div>
+                <div class="buy-row">
+                    <span>Total Estimasi</span>
+                    <span id="buyTotal">Rp 0</span>
+                </div>
+            </div>
+            <button class="btn-next" onclick="confirmBuy()" style="width:100%">
+                Konfirmasi Pembelian →
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Script utama (diletakkan di akhir body agar semua elemen HTML sudah dimuat) -->
+<script src="main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,660 @@
+/* ============================================================
+   main.css — KanalInvestasi
+   Stylesheet utama untuk halaman aplikasi (main.html)
+   ============================================================ */
+
+/* ─── CSS VARIABLES (Tema Warna) ────────────────────────────
+   Mendefinisikan warna utama sebagai variabel agar mudah
+   diubah secara konsisten di seluruh halaman
+─────────────────────────────────────────────────────────── */
+:root {
+    --ink: #0f0c1a;       /* Warna teks & background utama (gelap) */
+    --purple: #7c3aed;    /* Warna aksen utama */
+    --violet: #a855f7;    /* Warna aksen sekunder */
+    --gold: #f59e0b;      /* Warna highlight / brand */
+    --green: #10b981;     /* Warna positif / naik */
+    --red: #ef4444;       /* Warna negatif / turun */
+    --surface: #ffffff;   /* Permukaan kartu putih */
+    --bg: #f5f3ff;        /* Background halaman */
+    --border: #e5e7eb;    /* Warna border default */
+    --muted: #6b7280;     /* Warna teks sekunder / abu-abu */
+    --card: #ffffff;      /* Background kartu */
+}
+
+/* ─── RESET & BASE ──────────────────────────────────────────
+   Menghapus margin/padding bawaan browser dan
+   menyamakan box-sizing agar layout lebih konsisten
+─────────────────────────────────────────────────────────── */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+}
+
+/* ─── ANIMASI ───────────────────────────────────────────────
+   Animasi fade + slide ke atas saat halaman pertama dimuat
+─────────────────────────────────────────────────────────── */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   NAVBAR
+   Sticky navbar yang selalu berada di atas saat di-scroll
+   ============================================================ */
+.navbar {
+    background: var(--ink);
+    padding: 0 32px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100; /* Pastikan navbar selalu di atas elemen lain */
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+
+/* Logo brand di navbar */
+.nav-brand {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: white;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+/* Titik kuning kecil sebelah logo */
+.nav-brand-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+}
+
+/* Daftar link navigasi */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+}
+
+/* Styling link dan button di dalam nav */
+.nav-links li a,
+.nav-links li button {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* Efek hover dan state aktif pada link nav */
+.nav-links li a:hover,
+.nav-links li button:hover,
+.nav-links li a.active,
+.nav-links li button.active {
+    color: white;
+    background: rgba(255,255,255,0.1);
+}
+
+/* Link aktif berwarna emas */
+.nav-links li a.active {
+    color: var(--gold);
+}
+
+/* Area info user di kanan navbar */
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Badge nama user */
+.user-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.08);
+    padding: 6px 14px 6px 8px;
+    border-radius: 999px;
+}
+
+/* Avatar inisial user */
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, var(--purple), var(--gold));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    font-family: 'Syne', sans-serif;
+}
+
+.user-name {
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+}
+
+/* Tombol logout */
+.btn-logout {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.5);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-logout:hover {
+    border-color: var(--red);
+    color: var(--red);
+}
+
+/* ============================================================
+   SISTEM HALAMAN (SPA)
+   Semua halaman disembunyikan secara default.
+   Hanya halaman dengan class .active yang ditampilkan.
+   Perpindahan halaman diatur lewat JavaScript.
+   ============================================================ */
+.page {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+/* ============================================================
+   HERO SECTION (Halaman Beranda)
+   ============================================================ */
+.hero {
+    background: var(--ink);
+    padding: 56px 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Overlay gradien ungu di atas background */
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 100% at 60% 50%, rgba(124,58,237,0.3) 0%, transparent 70%);
+}
+
+/* Pola grid titik-titik di background hero */
+.hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(124,58,237,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,58,237,0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* Layout dalam hero: teks kiri, ticker kanan */
+.hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.hero-text h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 46px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+}
+
+.hero-text h1 span { color: var(--gold); }
+.hero-text p { color: rgba(255,255,255,0.55); font-size: 15px; line-height: 1.7; max-width: 400px; }
+
+/* Kolom ticker saham di hero */
+.hero-ticker {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Kartu individual ticker saham */
+.ticker-card {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 14px 20px;
+    min-width: 220px;
+}
+
+.ticker-label { font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+.ticker-val   { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: white; }
+.ticker-change { font-size: 12px; display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+
+/* Kelas warna untuk perubahan harga */
+.up   { color: var(--green); }
+.down { color: var(--red); }
+
+/* ============================================================
+   MARKET STATUS BAR
+   Bar tipis di bawah hero yang menampilkan ringkasan pasar
+   ============================================================ */
+.market-bar {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 40px;
+}
+
+.market-bar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    overflow-x: auto; /* Scroll horizontal di layar kecil */
+}
+
+.mkt-item  { display: flex; flex-direction: column; align-items: center; white-space: nowrap; }
+.mkt-name  { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+.mkt-val   { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; }
+
+/* ============================================================
+   KONTEN UTAMA & SECTION HEADER
+   ============================================================ */
+.content-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+/* Header setiap section: judul di kiri, link di kanan */
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.5px;
+}
+
+/* Tombol "Lihat Semua" */
+.see-all {
+    font-size: 13px;
+    color: var(--purple);
+    text-decoration: none;
+    font-weight: 500;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.see-all:hover { text-decoration: underline; }
+
+/* ============================================================
+   KARTU MODUL / COURSE CARDS
+   ============================================================ */
+
+/* Grid responsif yang menyesuaikan jumlah kolom otomatis */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.course-card {
+    background: var(--card);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: all 0.25s;
+    cursor: pointer;
+}
+
+/* Efek hover: kartu naik sedikit dengan shadow */
+.course-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(124,58,237,0.12);
+    border-color: rgba(124,58,237,0.2);
+}
+
+/* Wrapper gambar kartu */
+.card-img-wrap {
+    position: relative;
+    height: 160px;
+    overflow: hidden;
+    background: #f3f0ff;
+}
+
+.card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+/* Gambar sedikit zoom saat hover kartu */
+.course-card:hover .card-img-wrap img { transform: scale(1.05); }
+
+/* Badge level di sudut gambar */
+.card-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'Syne', sans-serif;
+}
+
+/* Variasi warna badge berdasarkan level */
+.badge-pemula   { background: rgba(16,185,129,0.15); color: #059669; }
+.badge-menengah { background: rgba(245,158,11,0.15);  color: #d97706; }
+.badge-lanjutan { background: rgba(239,68,68,0.15);   color: #dc2626; }
+
+.card-body  { padding: 18px; }
+.card-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.card-desc  { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+.card-meta  { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 12px; color: var(--muted); }
+
+/* Tombol "Mulai Belajar" di tiap kartu */
+.btn-mulai {
+    width: 100%;
+    padding: 11px;
+    background: var(--ink);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-mulai:hover { background: var(--purple); }
+
+/* ============================================================
+   HALAMAN SIMULASI TRADING
+   ============================================================ */
+.sim-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+/* Banner atas halaman simulasi */
+.sim-hero {
+    background: linear-gradient(135deg, var(--ink) 0%, #1a1040 100%);
+    border-radius: 20px;
+    padding: 40px;
+    color: white;
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sim-hero h2 { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+.sim-hero p  { color: rgba(255,255,255,0.55); font-size: 14px; }
+
+/* Area tampilan saldo virtual */
+.portfolio-val    { text-align: right; }
+.portfolio-label  { font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; }
+.portfolio-num    { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800; color: var(--gold); }
+.portfolio-change { font-size: 13px; color: var(--green); margin-top: 4px; }
+
+/* Tabel daftar saham */
+.saham-table {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+/* Baris header tabel */
+.table-header {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1fr 1fr 1.5fr;
+    padding: 14px 20px;
+    background: #faf9ff;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+/* Baris data tabel */
+.table-row {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1fr 1fr 1.5fr;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    transition: background 0.15s;
+}
+
+.table-row:last-child { border-bottom: none; }
+.table-row:hover      { background: #faf9ff; }
+
+.stock-code  { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; }
+.stock-name  { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.stock-price { font-weight: 600; font-size: 14px; }
+
+/* Pill persentase perubahan harga */
+.change-pill { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.change-up   { background: rgba(16,185,129,0.1); color: #059669; }
+.change-down { background: rgba(239,68,68,0.1);  color: #dc2626; }
+
+/* Tombol beli di tiap baris tabel */
+.btn-beli {
+    padding: 7px 18px;
+    background: var(--purple);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-beli:hover { background: var(--ink); }
+
+/* ============================================================
+   HALAMAN BERITA
+   ============================================================ */
+.news-wrap { max-width: 1200px; margin: 0 auto; padding: 40px; }
+
+/* Layout dua kolom: berita utama | sidebar */
+.news-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+
+/* Kartu berita besar */
+.news-card-big {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.news-card-big:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+.news-card-big img   { width: 100%; height: 200px; object-fit: cover; }
+.news-card-body      { padding: 20px; }
+
+.news-category { display: inline-block; padding: 3px 10px; background: rgba(124,58,237,0.1); color: var(--purple); border-radius: 20px; font-size: 11px; font-weight: 600; margin-bottom: 10px; }
+.news-title    { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.3px; }
+.news-excerpt  { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+.news-meta     { font-size: 11px; color: #9ca3af; display: flex; gap: 12px; }
+
+/* Kartu berita kecil di sidebar */
+.news-small-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.news-small-card:hover  { box-shadow: 0 4px 16px rgba(0,0,0,0.06); transform: translateY(-1px); }
+.news-small-img         { width: 64px; height: 64px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+.news-small-title       { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 4px; line-height: 1.4; }
+.news-small-meta        { font-size: 11px; color: #9ca3af; }
+
+/* ============================================================
+   MODAL — digunakan untuk materi belajar & simulasi beli
+   ============================================================ */
+
+/* Overlay gelap di belakang modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    display: none;          /* Tersembunyi secara default */
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Menampilkan modal ketika class .open ditambahkan via JS */
+.modal-overlay.open { display: flex; }
+
+/* Kotak modal */
+.modal-box {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    position: relative;
+    animation: fadeIn 0.25s ease;
+    max-height: 80vh;
+    overflow-y: auto; /* Scroll jika konten terlalu panjang */
+}
+
+/* Tombol X untuk menutup modal */
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    background: var(--border);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover { background: #e5e7eb; }
+
+/* Elemen teks di dalam modal */
+.modal-tag    { display: inline-block; padding: 4px 12px; background: rgba(124,58,237,0.1); color: var(--purple); border-radius: 20px; font-size: 11px; font-weight: 600; margin-bottom: 12px; }
+.modal-title  { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: var(--ink); letter-spacing: -0.5px; margin-bottom: 16px; }
+.modal-body   { font-size: 14px; color: #374151; line-height: 1.8; }
+.modal-body p  { margin-bottom: 14px; }
+.modal-body ul { padding-left: 20px; margin-bottom: 14px; }
+.modal-body li { margin-bottom: 8px; }
+.modal-body h4 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 8px; margin-top: 20px; color: var(--ink); }
+
+.modal-footer     { margin-top: 24px; display: flex; gap: 10px; }
+.btn-next         { flex: 1; padding: 13px; background: var(--purple); color: white; border: none; border-radius: 10px; font-family: 'Syne', sans-serif; font-weight: 700; cursor: pointer; transition: 0.2s; }
+.btn-next:hover   { background: var(--ink); }
+.btn-close-modal  { padding: 13px 20px; background: transparent; border: 2px solid var(--border); color: var(--muted); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; transition: 0.2s; }
+.btn-close-modal:hover { border-color: var(--muted); }
+
+/* Modal khusus untuk simulasi beli saham (lebih kecil) */
+.buy-modal  { max-width: 420px; }
+.buy-label  { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--ink); margin-bottom: 6px; display: block; }
+.buy-input  { width: 100%; padding: 12px 14px; border: 2px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; margin-bottom: 16px; outline: none; }
+.buy-input:focus { border-color: var(--purple); }
+
+/* Box ringkasan kalkulasi beli */
+.buy-summary { background: #f5f3ff; border-radius: 10px; padding: 16px; margin-bottom: 20px; }
+.buy-row     { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
+.buy-row:last-child { margin: 0; font-weight: 600; color: var(--purple); }
+
+/* ============================================================
+   RESPONSIVE — Penyesuaian untuk layar kecil / mobile
+   ============================================================ */
+@media (max-width: 900px) {
+    /* Hero: teks dan ticker susun ke bawah */
+    .hero-inner      { flex-direction: column; }
+    .hero-ticker     { flex-direction: row; flex-wrap: wrap; }
+
+    /* Berita: satu kolom */
+    .news-grid       { grid-template-columns: 1fr; }
+
+    /* Padding dikurangi di layar kecil */
+    .content-wrap,
+    .sim-wrap,
+    .news-wrap       { padding: 24px 16px; }
+
+    .hero            { padding: 32px 16px; }
+    .hero-text h1    { font-size: 32px; }
+
+    /* Sembunyikan menu nav di mobile */
+    .nav-links       { display: none; }
+}

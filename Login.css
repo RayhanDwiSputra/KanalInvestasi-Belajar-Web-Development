@@ -1,0 +1,345 @@
+/* ============================================================
+   login.css — KanalInvestasi
+   Stylesheet untuk halaman login (Login.html)
+   ============================================================ */
+
+/* ─── CSS VARIABLES (Tema Warna) ────────────────────────────
+   Warna-warna utama didefinisikan sebagai variabel CSS
+   agar mudah diubah dan konsisten di seluruh file
+─────────────────────────────────────────────────────────── */
+:root {
+    --ink:    #0f0c1a;  /* Warna utama gelap */
+    --purple: #7c3aed;  /* Aksen ungu */
+    --violet: #a855f7;  /* Aksen ungu muda */
+    --gold:   #f59e0b;  /* Warna highlight / brand */
+    --surface:#ffffff;  /* Permukaan putih */
+    --muted:  #6b7280;  /* Teks sekunder */
+    --border: #e5e7eb;  /* Warna border */
+}
+
+/* ─── RESET & BASE ──────────────────────────────────────────
+   Reset bawaan browser dan set font dasar
+─────────────────────────────────────────────────────────── */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    background: var(--ink);
+    overflow: hidden; /* Cegah scroll karena layout full-height */
+}
+
+/* ============================================================
+   PANEL KIRI — Branding & ilustrasi
+   Mengisi sisa ruang di luar panel kanan (flex: 1)
+   ============================================================ */
+.left-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Overlay gradien ungu di atas background gelap */
+.left-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 80% 60% at 20% 50%, rgba(124,58,237,0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 80% 20%, rgba(168,85,247,0.2) 0%, transparent 60%);
+}
+
+/* Pola grid titik-titik di background */
+.grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(124,58,237,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,58,237,0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* Ilustrasi grafik saham di bagian bawah panel kiri */
+.chart-deco {
+    position: absolute;
+    bottom: 80px;
+    left: 40px;
+    right: 40px;
+    height: 160px;
+    opacity: 0.15; /* Samar agar tidak mengganggu teks */
+}
+
+/* Konten teks di atas overlay */
+.left-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Logo brand */
+.brand {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    color: white;
+    letter-spacing: -0.5px;
+    margin-bottom: 60px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Titik kuning kecil di samping nama brand */
+.brand-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Headline utama panel kiri */
+.left-headline {
+    font-family: 'Syne', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 24px;
+}
+
+/* Kata kunci berwarna emas di headline */
+.left-headline span { color: var(--gold); }
+
+/* Deskripsi singkat di bawah headline */
+.left-sub {
+    color: rgba(255,255,255,0.55);
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 340px;
+}
+
+/* Baris statistik (50K+ pelajar, dll.) */
+.stats-row {
+    display: flex;
+    gap: 32px;
+    margin-top: 48px;
+}
+
+.stat-num   { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 700; color: white; }
+.stat-label { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+/* ============================================================
+   PANEL KANAN — Form login
+   Lebar tetap 480px, background putih
+   ============================================================ */
+.right-panel {
+    width: 480px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 50px;
+    position: relative;
+}
+
+/* Garis gradien tipis di bagian atas panel kanan */
+.right-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--purple), var(--violet), var(--gold));
+}
+
+/* ─── TEKS HEADER FORM ──────────────────────────────────── */
+.login-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -1px;
+    margin-bottom: 6px;
+}
+
+.login-sub {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 36px;
+}
+
+/* ─── INPUT FORM ────────────────────────────────────────── */
+.form-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 8px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    transition: all 0.2s;
+    margin-bottom: 20px;
+    background: #fafafa;
+}
+
+/* Efek fokus: border berubah warna dan ada glow */
+.form-input:focus {
+    border-color: var(--purple);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(124,58,237,0.08);
+}
+
+/* Link "Lupa kata sandi?" */
+.forgot {
+    text-align: right;
+    margin-top: -12px;
+    margin-bottom: 20px;
+}
+.forgot a { font-size: 12px; color: var(--purple); text-decoration: none; }
+
+/* ─── TOMBOL LOGIN ──────────────────────────────────────── */
+.btn-login {
+    width: 100%;
+    padding: 15px;
+    background: var(--ink);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-login:hover  { background: var(--purple); transform: translateY(-1px); }
+.btn-login:active { transform: translateY(0); }
+
+/* ─── DIVIDER "ATAU" ────────────────────────────────────── */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0;
+    color: #d1d5db;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+/* Garis horizontal di kiri dan kanan teks "ATAU" */
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+/* ─── TOMBOL LOGIN SOSIAL ───────────────────────────────── */
+.social-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.btn-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    background: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-social:hover {
+    border-color: var(--purple);
+    background: #faf5ff;
+}
+
+/* ─── TOMBOL MODE TAMU ──────────────────────────────────── */
+.btn-guest {
+    width: 100%;
+    padding: 13px;
+    background: transparent;
+    border: 2px dashed var(--border); /* Border putus-putus untuk kesan "opsional" */
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-guest:hover {
+    border-color: var(--violet);
+    color: var(--purple);
+    background: #faf5ff;
+}
+
+/* ─── PESAN ERROR ───────────────────────────────────────── */
+.error-msg {
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    color: #dc2626;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    display: none; /* Disembunyikan secara default, ditampilkan via JS */
+}
+
+/* ─── ANIMASI MASUK ─────────────────────────────────────── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Elemen form muncul secara berurutan (staggered) */
+.right-panel > * { animation: fadeUp 0.5s ease both; }
+.login-title      { animation-delay: 0.1s; }
+.login-sub        { animation-delay: 0.15s; }
+form              { animation-delay: 0.2s; }
+
+/* ─── RESPONSIVE ────────────────────────────────────────── */
+@media (max-width: 768px) {
+    /* Di mobile: sembunyikan panel kiri, form full-width */
+    .left-panel  { display: none; }
+    .right-panel { width: 100%; padding: 40px 28px; }
+}
