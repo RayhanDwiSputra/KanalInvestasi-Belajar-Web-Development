@@ -10,15 +10,15 @@
 ---
 
 ## Tampilan/interface
-![alt text](https://github.com/RayDwi/KanalInvestasi-Belajar-Web-Development/blob/main/Interface/log%20in%20page.png?raw=true)
+![alt text](https://github.com/RayDwi/KanalInvestasi-Belajar-Web-Development/blob/WIP_KanalInvestasi_Project/Interface/log%20in%20page.png?raw=true)
 
-![alt text](https://github.com/RayDwi/KanalInvestasi-Belajar-Web-Development/blob/main/Interface/Main%20page.png?raw=true)
+![alt text](https://github.com/RayDwi/KanalInvestasi-Belajar-Web-Development/blob/WIP_KanalInvestasi_Project/Interface/Main%20page.png?raw=true)
 
-![alt text](https://github.com/RayDwi/KanalInvestasi-Belajar-Web-Development/blob/main/Interface/material%20page.png?raw=true)
+![alt text](https://github.com/RayDwi/KanalInvestasi-Belajar-Web-Development/blob/WIP_KanalInvestasi_Project/Interface/material%20page.png?raw=true)
 
-![alt text](https://github.com/RayDwi/KanalInvestasi-Belajar-Web-Development/blob/main/Interface/Simulation%20page.png?raw=true)
+![alt text](https://github.com/RayDwi/KanalInvestasi-Belajar-Web-Development/blob/WIP_KanalInvestasi_Project/Interface/Simulation%20page.png?raw=true)
 
-![alt text](https://github.com/RayDwi/KanalInvestasi-Belajar-Web-Development/blob/main/Interface/News%20page.png?raw=true)
+![alt text](https://github.com/RayDwi/KanalInvestasi-Belajar-Web-Development/blob/WIP_KanalInvestasi_Project/Interface/News%20page.png?raw=true)
 
 ## 📖 Tentang Proyek
 
